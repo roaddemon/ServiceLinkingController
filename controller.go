@@ -369,6 +369,7 @@ func (c *Controller) handleServiceObject(obj interface{}){
 	klog.Info("handleServiceObject")
 	klog.Infof("HandleServiceObject '%v'", obj)
 	klog.Info("handleServiceObject2")
+	
 	var object metav1.Object
 	var ok bool
 	if object, ok = obj.(metav1.Object); !ok {
@@ -378,7 +379,7 @@ func (c *Controller) handleServiceObject(obj interface{}){
 		klog.Info("handleServiceObject4")
 	}
 	klog.Info("handleServiceObject5")
-	klog.Infof("Processing object: %s", object.GetName())
+	klog.Infof("Processing object: %s in namespace %s", object.GetName(), object.GetNamespace())
 	klog.Info("handleServiceObject6")
 }
 
