@@ -365,7 +365,8 @@ func (c *Controller) enqueueFoo(obj interface{}) {
 }
 
 func (c *Controller) handleServiceObject(obj interface{}){
-    klog.V(4).Infof("HandleServiceObject '%v'", obj)
+	klog.Info("handleServiceObject")
+	klog.Infof("HandleServiceObject '%v'", obj)
 }
 
 // handleObject will take any resource implementing metav1.Object and attempt
