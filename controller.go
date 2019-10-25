@@ -69,7 +69,7 @@ type Controller struct {
 
 	deploymentsLister appslisters.DeploymentLister
 	deploymentsSynced cache.InformerSynced
-	servicesLister    appsListers.ServiceLister
+	servicesLister    appslisters.ServiceLister
 	foosLister        listers.FooLister
 	foosSynced        cache.InformerSynced
 
