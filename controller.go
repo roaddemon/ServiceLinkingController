@@ -150,8 +150,8 @@ func NewController(
 	serviceInformer.Informer().AddEventHandler(cache.ResourceEventHandlerFuncs{
 		AddFunc: controller.handleObject,
 		UpdateFunc: func(pld, new interface{}) {
-			newService := new.(*appsv1.Service)
-			oldService := old.(*appsv1.Service)
+			newService := new.(*corev1.Service)
+			oldService := old.(*corev1.Service)
 			if newService.ResourceVersion == oldService.ResourceVersion {
 				return
 			}
