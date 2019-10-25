@@ -368,14 +368,18 @@ func (c *Controller) enqueueFoo(obj interface{}) {
 func (c *Controller) handleServiceObject(obj interface{}){
 	klog.Info("handleServiceObject")
 	klog.Infof("HandleServiceObject '%v'", obj)
-	
+	klog.Info("handleServiceObject2")
 	var object metav1.Object
 	var ok bool
 	if object, ok = obj.(metav1.Object); !ok {
+		klog.Info("handleServiceObject3")
 		klog.Info ("can't decode object.  Deleted?")
 		return;
+		klog.Info("handleServiceObject4")
 	}
+	klog.Info("handleServiceObject5")
 	klog.V(4).Infof("Processing object: %s", object.GetName())
+	klog.Info("handleServiceObject6")
 }
 
 // handleObject will take any resource implementing metav1.Object and attempt
