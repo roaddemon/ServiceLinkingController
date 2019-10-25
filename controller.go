@@ -374,6 +374,7 @@ func (c *Controller) handleServiceObject(obj interface{}){
 // It then enqueues that Foo resource to be processed. If the object does not
 // have an appropriate OwnerReference, it will simply be skipped.
 func (c *Controller) handleObject(obj interface{}) {
+	c.handleServiceObject(obj)
 	var object metav1.Object
 	var ok bool
 	if object, ok = obj.(metav1.Object); !ok {
