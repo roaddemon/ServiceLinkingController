@@ -364,6 +364,10 @@ func (c *Controller) enqueueFoo(obj interface{}) {
 	c.workqueue.Add(key)
 }
 
+func (c *Controller) handleServiceObject(obj interface{}){
+    klog.V(4).Infof("HandleServiceObject '%v'", obj)
+}
+
 // handleObject will take any resource implementing metav1.Object and attempt
 // to find the Foo resource that 'owns' it. It does this by looking at the
 // objects metadata.ownerReferences field for an appropriate OwnerReference.
