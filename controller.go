@@ -71,6 +71,7 @@ type Controller struct {
 	deploymentsLister appslisters.DeploymentLister
 	deploymentsSynced cache.InformerSynced
 	servicesLister    corelisters.ServiceLister
+	servicesSynced    cache.InformerSynced
 	foosLister        listers.FooLister
 	foosSynced        cache.InformerSynced
 
@@ -90,6 +91,7 @@ func NewController(
 	kubeclientset kubernetes.Interface,
 	sampleclientset clientset.Interface,
 	deploymentInformer appsinformers.DeploymentInformer,
+	serviceInformer appsinformers.ServiceInformer,
 	fooInformer informers.FooInformer) *Controller {
 
 	// Create event broadcaster
@@ -107,6 +109,8 @@ func NewController(
 		sampleclientset:   sampleclientset,
 		deploymentsLister: deploymentInformer.Lister(),
 		deploymentsSynced: deploymentInformer.Informer().HasSynced,
+		servicesLister:    serviceInformer.Lister(),
+		servicesSynced:    serviceInformer.Informer().HasSynced,
 		foosLister:        fooInformer.Lister(),
 		foosSynced:        fooInformer.Informer().HasSynced,
 		workqueue:         workqueue.NewNamedRateLimitingQueue(workqueue.DefaultControllerRateLimiter(), "Foos"),
@@ -135,6 +139,19 @@ func NewController(
 			if newDepl.ResourceVersion == oldDepl.ResourceVersion {
 				// Periodic resync will send update events for all known Deployments.
 				// Two different versions of the same Deployment will always have different RVs.
+				return
+			}
+			controller.handleObject(new)
+		},
+		DeleteFunc: controller.handleObject,
+	})
+	
+	serviceInformer.Informer().AddEventHandler(cache.ResourceEventHandlerFuncs{
+		AddFunc: controller.handleObject,
+		UpdateFunc: func(pld, new interface{}) {
+			newService := new.(*appsv1.Service)
+			oldService := old.(*appsv1.Service)
+			if newService.ResourceVersion == oldService.ResourceVersion {
 				return
 			}
 			controller.handleObject(new)
