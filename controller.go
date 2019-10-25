@@ -156,9 +156,9 @@ func NewController(
 			if newService.ResourceVersion == oldService.ResourceVersion {
 				return
 			}
-			controller.handleService(new)
+			controller.handleServiceObject(new)
 		},
-		DeleteFunc: controller.handleService,
+		DeleteFunc: controller.handleServiceObject,
 	})
 
 	return controller
