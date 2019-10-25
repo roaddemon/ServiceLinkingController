@@ -148,16 +148,17 @@ func NewController(
 	})
 	
 	serviceInformer.Informer().AddEventHandler(cache.ResourceEventHandlerFuncs{
-		AddFunc: controller.handleObject,
+		AddFunc: controller.handleServiceObject,
 		UpdateFunc: func(old, new interface{}) {
+			klog.Info("serviceInformer - UpdateFunc")
 			newService := new.(*corev1.Service)
 			oldService := old.(*corev1.Service)
 			if newService.ResourceVersion == oldService.ResourceVersion {
 				return
 			}
-			controller.handleObject(new)
+			controller.handleService(new)
 		},
-		DeleteFunc: controller.handleObject,
+		DeleteFunc: controller.handleService,
 	})
 
 	return controller
