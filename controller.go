@@ -379,7 +379,15 @@ func (c *Controller) handleServiceObject(obj interface{}){
 		klog.Info("handleServiceObject4")
 	}
 	klog.Info("handleServiceObject5")
-	klog.Infof("Processing object: %s in namespace %s", object.GetName(), object.GetNamespace())
+	var sourceNamespace string
+	sourceNamespace = object.GetNamespace()
+	var serviceName string 
+	serviceName = object.GetName()
+	klog.Infof("Processing object: %s in namespace %s", serviceName, sourceNamespace)
+	
+	var service interface
+	service = c.servicesLister.Services(sourceNamespace).Get(serviceName)
+	klog.Info(service)
 	klog.Info("handleServiceObject6")
 }
 
