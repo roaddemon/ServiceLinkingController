@@ -387,6 +387,9 @@ func (c *Controller) handleServiceObject(obj interface{}){
 	
 	var service interface{}
 	service, err := c.servicesLister.Services(sourceNamespace).Get(serviceName)
+	if err != nil {
+		utilruntime.HandleError(err)
+	}
 	klog.Info(service)
 	klog.Info("handleServiceObject6")
 }
