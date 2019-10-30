@@ -379,9 +379,25 @@ func (c *Controller) handleServiceObject(obj interface{}){
 	sourceNamespace = object.GetNamespace()
 	var serviceName string 
 	serviceName = object.GetName()
+	
+	var service = c.getService(serviceName, sourceNamespace)
 	if(sourceNamespace == "staging"){
 		klog.Infof("Processing object: %s in namespace %s", serviceName, sourceNamespace)
 	
+		if (service.ObjectMeta.Annotations["linkdevtostaging"] != "false"){
+			klog.Info("Creating Service")
+			c.createServiceResource()
+			klog.Info("handleServiceObject7")
+		} else {
+			klog.Infof("Skipping object with 'linkdevtostaging = false'")
+		}
+	} else {
+		klog.Infof("Skipping object in unmonitored namespace: %s in namespace %s", serviceName, sourceNamespace)
+	}
+	
+}
+
+func (c *Controller) getService(serviceName string, namespace string) {
 		var service interface{}
 		service, err := c.servicesLister.Services(sourceNamespace).Get(serviceName)
 		if err != nil {
@@ -395,16 +411,8 @@ func (c *Controller) handleServiceObject(obj interface{}){
 			// klog.Info ("can't decode service.  Deleted?")
 			// return;
 		// }	
-		if (serviceObject.ObjectMeta.Annotations["linkdevtostaging"] != "false"){
-			klog.Info("Creating Service")
-			c.createServiceResource()
-			klog.Info("handleServiceObject7")
-		} else {
-			klog.Infof("Skipping object with 'linkdevtostaging = false'")
-		}
-	} else {
-		klog.Infof("Skipping object in unmonitored namespace: %s in namespace %s", serviceName, sourceNamespace)
-	}
+		
+		return serviceObject
 	
 }
 
