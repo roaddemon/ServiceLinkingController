@@ -380,8 +380,12 @@ func (c *Controller) handleServiceObject(obj interface{}){
 	var serviceName string 
 	serviceName = object.GetName()
 	
-	var service, err = c.getService(serviceName, sourceNamespace)
+	
 	if(sourceNamespace == "staging"){
+		var service, err = c.getService(serviceName, sourceNamespace)
+		if(err){
+			return
+		}
 		klog.Infof("Processing object: %s in namespace %s", serviceName, sourceNamespace)
 	
 		if (service.ObjectMeta.Annotations["linkdevtostaging"] != "false"){
