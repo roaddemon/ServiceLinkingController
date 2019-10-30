@@ -399,18 +399,18 @@ func (c *Controller) handleServiceObject(obj interface{}){
 
 func (c *Controller) createServiceResource(){
 	
-	//c.kubeclientset.AppsV1().Deployments(foo.Namespace).Create(newDeployment(foo))
-	serviceClient := c.kubeclientset.CoreV1().Services("default")
+	
+	// serviceClient := c.kubeclientset.CoreV1().Services("default")
 
-	service := &corev1.Service{
-		ObjectMeta: metav1.ObjectMeta{
-			Name: "demo-deployment",
-		},
-		Spec: corev1.ServiceSpec{
-			Type: "ExternalName",
-			ExternalName: "franksautocreatedservice",
-		},
-	}
+	// service := &corev1.Service{
+		// ObjectMeta: metav1.ObjectMeta{
+			// Name: "demo-deployment",
+		// },
+		// Spec: corev1.ServiceSpec{
+			// Type: "ExternalName",
+			// ExternalName: "franksautocreatedservice",
+		// },
+	// }
 
 	// Create Deployment
 	fmt.Println("Creating servuce...")
