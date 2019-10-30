@@ -397,7 +397,7 @@ func (c *Controller) handleServiceObject(obj interface{}){
 	
 }
 
-func (c *Controller) getService(serviceName string, namespace string) (*corev1.Service, string) {
+func (c *Controller) getService(serviceName string, namespace string) (*corev1.Service, error) {
 		var service interface{}
 		service, err := c.servicesLister.Services(namespace).Get(serviceName)
 		if err != nil {
