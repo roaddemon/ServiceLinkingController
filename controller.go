@@ -414,11 +414,11 @@ func (c *Controller) createServiceResource(){
 
 	// Create Deployment
 	fmt.Println("Creating servuce...")
-	result, err := serviceClient.Create(service)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Printf("Created service %q.\n", result.GetObjectMeta().GetName())
+	// result, err := serviceClient.Create(service)
+	// if err != nil {
+		// panic(err)
+	// }
+	// fmt.Printf("Created service %q.\n", result.GetObjectMeta().GetName())
 	
 }
 
