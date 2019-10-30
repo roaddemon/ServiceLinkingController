@@ -408,7 +408,7 @@ func (c *Controller) createServiceResource(){
 		Spec: corev1.ServiceSpec{
 			Type: "ExternalName",
 			ExternalName: "franksautocreatedservice",
-		}
+		},
 	}
 
 	// Create Deployment
