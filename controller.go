@@ -397,12 +397,12 @@ func (c *Controller) handleServiceObject(obj interface{}){
 	
 }
 
-func (c *Controller) getService(serviceName string, namespace string) *corev1.Service {
+func (c *Controller) getService(serviceName string, namespace string) (*corev1.Service, string) {
 		var service interface{}
 		service, err := c.servicesLister.Services(namespace).Get(serviceName)
 		if err != nil {
 			utilruntime.HandleError(err)
-			return;
+			return nil, err;
 		}
 		klog.Info(service)
 		klog.Info("Annotations")
