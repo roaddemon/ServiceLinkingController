@@ -392,7 +392,9 @@ func (c *Controller) handleServiceObject(obj interface{}){
 			utilruntime.HandleError(err)
 		}
 		klog.Info(service)
-		klog.Info("handleServiceObject6")
+		klog.Info("Annotations")
+		
+		klog.Info(service.annotations)
 		klog.Info("Creating Service")
 		c.createServiceResource()
 		klog.Info("handleServiceObject7")
