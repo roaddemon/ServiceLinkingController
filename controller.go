@@ -394,12 +394,13 @@ func (c *Controller) handleServiceObject(obj interface{}){
 			// klog.Info ("can't decode service.  Deleted?")
 			// return;
 		// }	
-		if (serviceObject.ObjectMeta.Annotations["linkdevtostaging"] == "false"){
-			klog.Infof("Skipping object with 'linkdevtostaging = false'", serviceName, sourceNamespace)
+		if (serviceObject.ObjectMeta.Annotations["linkdevtostaging"] != "false"){
+			klog.Info("Creating Service")
+			c.createServiceResource()
+			klog.Info("handleServiceObject7")
+		} else {
+			klog.Infof("Skipping object with 'linkdevtostaging = false'")
 		}
-		klog.Info("Creating Service")
-		c.createServiceResource()
-		klog.Info("handleServiceObject7")
 	} else {
 		klog.Infof("Skipping object in unmonitored namespace: %s in namespace %s", serviceName, sourceNamespace)
 	}
