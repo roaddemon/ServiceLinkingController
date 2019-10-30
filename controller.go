@@ -391,7 +391,7 @@ func (c *Controller) handleServiceObject(obj interface{}){
 	
 		if (service.ObjectMeta.Annotations["linkdevtostaging"] != "false"){
 			
-			var devService, deverr = c.getService(serviceName, "dev")
+			var _, deverr = c.getService(serviceName, "dev")
 			if (deverr == nil){
 				klog.Info("Service already exists in dev.  Skipping")
 				return;
