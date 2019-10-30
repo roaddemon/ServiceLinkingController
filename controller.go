@@ -393,7 +393,7 @@ func (c *Controller) handleServiceObject(obj interface{}){
 		}
 		klog.Info(service)
 		klog.Info("Annotations")
-		var serviceObject corev1.Service = &service.(corev1.Service);
+		var serviceObject corev1.Service = service.(*corev1.Service);
 		// if serviceObject, ok = service.(corev1.Service); !ok {
 			// klog.Info ("can't decode service.  Deleted?")
 			// return;
