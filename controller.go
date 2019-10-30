@@ -412,7 +412,7 @@ func (c *Controller) getService(serviceName string, namespace string) (*corev1.S
 			// return;
 		// }	
 		
-		return serviceObject
+		return serviceObject, nil
 	
 }
 
