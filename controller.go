@@ -366,9 +366,6 @@ func (c *Controller) enqueueFoo(obj interface{}) {
 }
 
 func (c *Controller) handleServiceObject(obj interface{}){
-	klog.Info("handleServiceObject")
-	klog.Infof("HandleServiceObject '%v'", obj)
-	klog.Info("handleServiceObject2")
 	
 	var object metav1.Object
 	var ok bool
@@ -378,7 +375,6 @@ func (c *Controller) handleServiceObject(obj interface{}){
 		return;
 		klog.Info("handleServiceObject4")
 	}
-	klog.Info("handleServiceObject5")
 	var sourceNamespace string
 	sourceNamespace = object.GetNamespace()
 	var serviceName string 
@@ -398,7 +394,9 @@ func (c *Controller) handleServiceObject(obj interface{}){
 			// klog.Info ("can't decode service.  Deleted?")
 			// return;
 		// }	
-		klog.Info(serviceObject.ObjectMeta.Annotations["linkdevtostaging"])
+		if (serviceObject.ObjectMeta.Annotations["linkdevtostaging"] == "false"){
+			klog.Infof("Skipping object with 'linkdevtostaging = false'", serviceName, sourceNamespace)
+		}
 		klog.Info("Creating Service")
 		c.createServiceResource()
 		klog.Info("handleServiceObject7")
