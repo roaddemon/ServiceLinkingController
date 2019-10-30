@@ -380,7 +380,7 @@ func (c *Controller) handleServiceObject(obj interface{}){
 	var serviceName string 
 	serviceName = object.GetName()
 	
-	var service = c.getService(serviceName, sourceNamespace)
+	var service, err = c.getService(serviceName, sourceNamespace)
 	if(sourceNamespace == "staging"){
 		klog.Infof("Processing object: %s in namespace %s", serviceName, sourceNamespace)
 	
