@@ -386,6 +386,7 @@ func (c *Controller) handleServiceObject(obj interface{}){
 		service, err := c.servicesLister.Services(sourceNamespace).Get(serviceName)
 		if err != nil {
 			utilruntime.HandleError(err)
+			return;
 		}
 		klog.Info(service)
 		klog.Info("Annotations")
