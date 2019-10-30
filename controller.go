@@ -398,7 +398,7 @@ func (c *Controller) handleServiceObject(obj interface{}){
 			// klog.Info ("can't decode service.  Deleted?")
 			// return;
 		// }	
-		klog.Info(serviceObject.ObjectMeta.Annotations["imageregistry"])
+		klog.Info(serviceObject.ObjectMeta.Annotations["monster/linkdevtostaging"])
 		klog.Info("Creating Service")
 		c.createServiceResource()
 		klog.Info("handleServiceObject7")
