@@ -382,13 +382,21 @@ func (c *Controller) handleServiceObject(obj interface{}){
 	
 	
 	if(sourceNamespace == "staging"){
+		klog.Infof("Processing object: %s in namespace %s", serviceName, sourceNamespace)
 		var service, err = c.getService(serviceName, sourceNamespace)
 		if(err != nil){
 			return
 		}
-		klog.Infof("Processing object: %s in namespace %s", serviceName, sourceNamespace)
+		
 	
 		if (service.ObjectMeta.Annotations["linkdevtostaging"] != "false"){
+			
+			devService, err = c.getService(serviceName, "dev")
+			if (err == nil){
+				klog.Info("Service already exists in dev.  Skipping")
+				return;
+			}
+			
 			klog.Info("Creating Service")
 			c.createServiceResource()
 			klog.Info("handleServiceObject7")
