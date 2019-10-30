@@ -428,28 +428,28 @@ func (c *Controller) getService(serviceName string, namespace string) (*corev1.S
 	
 }
 
-func (c *Controller) createServiceResource(){
+func (c *Controller) createServiceResource(serviceName string, namespace string){
 	
 	
-	// serviceClient := c.kubeclientset.CoreV1().Services("default")
+	 serviceClient := c.kubeclientset.CoreV1().Services(namespace)
 
-	// service := &corev1.Service{
-		// ObjectMeta: metav1.ObjectMeta{
-			// Name: "demo-deployment",
-		// },
-		// Spec: corev1.ServiceSpec{
-			// Type: "ExternalName",
-			// ExternalName: "franksautocreatedservice",
-		// },
-	// }
+	 service := &corev1.Service{
+		ObjectMeta: metav1.ObjectMeta{
+			Name: serviceName,
+		},
+		Spec: corev1.ServiceSpec{
+			Type: "ExternalName",
+			ExternalName: "franksautocreatedservice",
+		},
+	}
 
 	// Create Deployment
 	fmt.Println("Creating servuce...")
-	// result, err := serviceClient.Create(service)
-	// if err != nil {
-		// panic(err)
-	// }
-	// fmt.Printf("Created service %q.\n", result.GetObjectMeta().GetName())
+	result, err := serviceClient.Create(service)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("Created service %q.\n", result.GetObjectMeta().GetName())
 	
 }
 
