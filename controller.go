@@ -383,18 +383,23 @@ func (c *Controller) handleServiceObject(obj interface{}){
 	sourceNamespace = object.GetNamespace()
 	var serviceName string 
 	serviceName = object.GetName()
-	klog.Infof("Processing object: %s in namespace %s", serviceName, sourceNamespace)
+	if(sourceNamespace == "staging"){
+		klog.Infof("Processing object: %s in namespace %s", serviceName, sourceNamespace)
 	
-	var service interface{}
-	service, err := c.servicesLister.Services(sourceNamespace).Get(serviceName)
-	if err != nil {
-		utilruntime.HandleError(err)
+		var service interface{}
+		service, err := c.servicesLister.Services(sourceNamespace).Get(serviceName)
+		if err != nil {
+			utilruntime.HandleError(err)
+		}
+		klog.Info(service)
+		klog.Info("handleServiceObject6")
+		klog.Info("Creating Service")
+		c.createServiceResource()
+		klog.Info("handleServiceObject7")
+	} else {
+		klog.Infof("Skipping object in unmonitored namespace: %s in namespace %s", serviceName, sourceNamespace)
 	}
-	klog.Info(service)
-	klog.Info("handleServiceObject6")
-	klog.Info("Creating Service")
-	c.createServiceResource()
-	klog.Info("handleServiceObject7")
+	
 }
 
 func (c *Controller) createServiceResource(){
