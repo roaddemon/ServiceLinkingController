@@ -392,6 +392,33 @@ func (c *Controller) handleServiceObject(obj interface{}){
 	}
 	klog.Info(service)
 	klog.Info("handleServiceObject6")
+	klog.Info("Creating Service")
+	c.createServiceResource()
+	klog.Info("handleServiceObject7")
+}
+
+func (c *Controller) createServiceResource(){
+	
+	serviceClient := clientset.CoreV1().Services(apiv1.NamespaceDefault)
+
+	service := &corev1.Service{
+		ObjectMeta: metav1.ObjectMeta{
+			Name: "demo-deployment",
+		},
+		Spec: corev1.ServiceSpec{
+			Type: "ExternalName",
+			ExternalName: "franksautocreatedservice"
+		}
+	}
+
+	// Create Deployment
+	fmt.Println("Creating servuce...")
+	result, err := serviceClient.Create(service)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("Created service %q.\n", result.GetObjectMeta().GetName())
+	
 }
 
 // handleObject will take any resource implementing metav1.Object and attempt
