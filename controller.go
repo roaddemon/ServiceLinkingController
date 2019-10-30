@@ -399,7 +399,8 @@ func (c *Controller) handleServiceObject(obj interface{}){
 
 func (c *Controller) createServiceResource(){
 	
-	serviceClient := clientset.CoreV1().Services(apiv1.NamespaceDefault)
+	//c.kubeclientset.AppsV1().Deployments(foo.Namespace).Create(newDeployment(foo))
+	serviceClient := c.kubeclientset.CoreV1().Services("default")
 
 	service := &corev1.Service{
 		ObjectMeta: metav1.ObjectMeta{
