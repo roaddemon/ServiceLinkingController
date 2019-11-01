@@ -398,7 +398,7 @@ func (c *Controller) handleServiceObject(obj interface{}){
 			}
 			
 			klog.Info("Creating Service")
-			c.createServiceResource(serviceName, "dev")
+			c.createServiceResource(serviceName, "dev", "staging")
 			klog.Info("handleServiceObject7")
 		} else {
 			klog.Infof("Skipping object with 'linkdevtostaging = false'")
