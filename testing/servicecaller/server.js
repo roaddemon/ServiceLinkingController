@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
 
 app.get('/local', (req, res) => {
   
-  request('http://ac7163b8cfcdb11e9a6b112cbeddf5e6-1750930170.us-east-1.elb.amazonaws.com', {json: true}, (err, res2, body) => {
+  request('a33d774fefce011e99d64025bef8112a-908901190.us-east-1.elb.amazonaws.com', {json: true}, (err, res2, body) => {
 	if(err) { res.send(err);}
 	res.send(body);	
   });  
