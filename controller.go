@@ -428,7 +428,7 @@ func (c *Controller) getService(serviceName string, namespace string) (*corev1.S
 	
 }
 
-func (c *Controller) createServiceResource(serviceName string, namespace string){
+func (c *Controller) createServiceResource(serviceName string, namespace string, targetNamespace string){
 	
 	
 	 serviceClient := c.kubeclientset.CoreV1().Services(namespace)
@@ -439,7 +439,7 @@ func (c *Controller) createServiceResource(serviceName string, namespace string)
 		},
 		Spec: corev1.ServiceSpec{
 			Type: "ExternalName",
-			ExternalName: "franksautocreatedservice",
+			ExternalName: fmt.Sprintf("%s.%s", serviceName, targetNamespace),
 		},
 	}
 
