@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: servicecaller-deployment
+  name: servicecaller-service
 spec:
   selector:
     app: servicecaller

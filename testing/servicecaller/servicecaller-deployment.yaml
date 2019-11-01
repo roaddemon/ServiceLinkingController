@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: servicecaller
-        image: fdawsdevus/servicecalller:latest
+        image: fdawsdevus/servicecaller:latest
         ports:
         - containerPort: 8080
