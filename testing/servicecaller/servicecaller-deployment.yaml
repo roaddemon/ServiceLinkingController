@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: helloworld-deployment
+  name: servicecaller-deployment
   labels:
-    app: helloworld
+    app: servicecaller
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: helloworld
+      app: servicecaller
   template:
     metadata:
       labels:
-        app: helloworld
+        app: servicecaller
     spec:
       containers:
-      - name: helloworld
-        image: nginxdemos/hello:plain-text
+      - name: servicecaller
+        image: fdawsdevus/servicecalller:latest
         ports:
-        - containerPort: 80
+        - containerPort: 8080
