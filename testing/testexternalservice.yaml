@@ -1,0 +1,8 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: helloworld-service
+  namespace: dev
+spec:
+  type: ExternalName
+  externalName: helloworld-service.staging.svc.cluster.local

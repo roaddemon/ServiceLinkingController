@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: servicelinkingcontroller-deployment
+  labels:
+    app: servicelinkingcontroller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: servicelinkingcontroller
+  template:
+    metadata:
+      labels:
+        app: servicelinkingcontroller
+    spec:
+      serviceAccountName: servicelinkingcontroller-serviceaccount
+      containers:
+      - name: servicelinkingcontroller
+        image: fdawsdevus/servicelinkingcontroller:latest
+      
