@@ -431,15 +431,17 @@ func (c *Controller) getService(serviceName string, namespace string) (*corev1.S
 func (c *Controller) createServiceResource(serviceName string, namespace string, targetNamespace string){
 	
 	
-	 serviceClient := c.kubeclientset.CoreV1().Services(namespace)
-
-	 service := &corev1.Service{
+	serviceClient := c.kubeclientset.CoreV1().Services(namespace)
+	var serviceExternalName string
+	serviceExternalName = fmt.Sprintf("%s.%s", serviceName, targetNamespace)
+	fmt.Printf("Creating external service %s.\n", serviceExternalName)
+	service := &corev1.Service{
 		ObjectMeta: metav1.ObjectMeta{
 			Name: serviceName,
 		},
 		Spec: corev1.ServiceSpec{
 			Type: "ExternalName",
-			ExternalName: fmt.Sprintf("%s.%s", serviceName, targetNamespace),
+			ExternalName: serviceExternalName,
 		},
 	}
 
