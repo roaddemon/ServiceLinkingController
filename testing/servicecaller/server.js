@@ -5,7 +5,7 @@ const request = require('request');
 app.get('/', (req, res) => {
   
   request('http://helloworld-service', {json: true}, (err, res2, body) => {
-	if(err) { res.send('err');}
+	if(err) { res.send(err);}
 	res.send(body);	
   });  
 });
