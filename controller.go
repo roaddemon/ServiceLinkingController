@@ -433,7 +433,7 @@ func (c *Controller) createServiceResource(serviceName string, namespace string,
 	
 	serviceClient := c.kubeclientset.CoreV1().Services(namespace)
 	var serviceExternalName string
-	serviceExternalName = fmt.Sprintf("%s.%s", serviceName, targetNamespace)
+	serviceExternalName = fmt.Sprintf("%s.%s.svc.cluster.local", serviceName, targetNamespace)
 	fmt.Printf("Creating external service %s.\n", serviceExternalName)
 	service := &corev1.Service{
 		ObjectMeta: metav1.ObjectMeta{
